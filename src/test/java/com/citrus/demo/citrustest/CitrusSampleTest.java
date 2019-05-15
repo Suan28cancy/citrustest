@@ -11,25 +11,47 @@ import com.consol.citrus.http.client.HttpClient;
 public class CitrusSampleTest extends TestNGCitrusTestRunner {
 	
 	@Autowired
-	HttpClient journelClient;
+	HttpClient oAuthClient;
+	
+	@Autowired
+	HttpClient locationServiceClient;
 	
 	@Test
 	@CitrusTest
 	public void test() {
         http(httpActionBuilder -> httpActionBuilder
-                .client(journelClient)
+                .client(oAuthClient)
                 .send()
-                .post("/journal/journals/")
-                .contentType("application/json")
-                .header("Authorization", "Basic citrus:encodeBase64('N0217055:Drum2570')")
-                .header("application-uuid", "1234")
-                .header("request-uuid", "5678")
-                .payload("[{\"claimIdentifier\":\"as\",\"claimNumber\":234212345,\"createDate\": \"02/13/2012 07:15:32\",\"topicCode\": \"04\",\"titleName\": \"Medical - Vital Point\",\"externalCreateName\": \"LANGER, JUSTIN\",\"externalProcessName\": \"VitalPnt\",   \"externalUserIdentificationNumber\": \"n9999999\",\"text\": \"Fill Decision:Block Fill \\r\\nMedication Decisions:Allow Until 01/02/2011 \\r\\nMedication Restrictions:Generic Only \\r\\nPhysician Decisions:Block Until 01/02/2011 \\r\\nDo Not Send Auth:YES \\r\\nDecision Driver:Claim Rep Review \\r\\nDecision Reason:Allow Based on Review \\r\\nDecision Rendered By:Claim Representative \\r\\nDecision Rendered Behalf:SMITH, JOHN \\r\\nDecision By:LANGER, JUSTIN \\r\\nDecision Date Time:02/13/2012 07:15:32 \\r\\nComments:This is test message \\r\\nRx Date:11/2/2018 \\r\\nMedication Name:Xtampza ER \\r\\nPhysician Name:Johnson, Brad \\r\\nPhysician Phone:8085231414 \\r\\nPharmacy Name:Wal-mart store #4532 \\r\\nPharmacy Address:1234 Wilson St., Baltimore, MD, 44526-9822 \\r\\nPharmacy Phone:4563012255 \\r\\nRx#:346778 \\r\\nQuantity:30 \\r\\nDay Supply:15 \\r\\nTherapeutic Class:ANALGESICS - OPIOID \\r\\nBrand:Brand \\r\\nFill:1 of 3 \\r\\nCost:324.86 \\r\\n\"}]"));
+                .post("/as/token.oauth2")
+                .contentType("application/x-www-form-urlencoded")
+                .header("Authorization", "Basic citrus:encodeBase64('ci_niplcmsclient_4:955be1ac-d3af-4c86-b8cb-e4f69bbafc5d')")
+                .payload("grant_type=client_credentials&scope:CI_ATWORK_COM"));
 
             http(httpActionBuilder -> httpActionBuilder
-                .client(journelClient)
+                .client(oAuthClient)
                 .receive()
-                .response(HttpStatus.CREATED));
+                .response(HttpStatus.OK)
+                .payload("{\"access_token\":\"@variable('accessToken')@\",\"token_type\":\"@variable('tokenType')@\",\"expires_in\":\"@variable('expiresIn')@\"}"));
+            
+            
+            echo("Access token is: ${accessToken}");
+            echo("Token Type is: ${tokenType}");
+            echo("Expires in ${expiresIn}");
+            
+            http(httpActionBuilder -> httpActionBuilder
+                    .client(locationServiceClient)
+                    .send()
+                    .post("/services/niplcs/cope/update-cope-data")
+                    .contentType("application/json")
+                    .header("Authorization", "${tokenType} ${accessToken}")
+                    .payload("{\"agreementId\":0,\r\n" + "\"subLocId\":14036975,\r\n" + "\"copyPolicyIndicator\":\"N\",\r\n"
+    						+ "\"userId\":2280}  \r\n" + ""));
+
+                http(httpActionBuilder -> httpActionBuilder
+                    .client(locationServiceClient)
+                    .receive()
+                    .response(HttpStatus.CREATED)
+                    );
 	}
 
 }

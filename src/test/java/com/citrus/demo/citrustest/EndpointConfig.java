@@ -11,11 +11,20 @@ import org.springframework.context.annotation.Configuration;
 public class EndpointConfig {
 	
     @Bean
-    public HttpClient journelClient() {
+    public HttpClient oAuthClient() {
         return CitrusEndpoints
             .http()
                 .client()
-                .requestUrl("https://ci-wc-journal-service-dev.pdc.np.paas.lmig.com")
+                .requestUrl("https://test-lmidp.libertymutual.com")
+            .build();
+    }
+    
+    @Bean
+    public HttpClient locationServiceClient() {
+        return CitrusEndpoints
+            .http()
+                .client()
+                .requestUrl("https://nip-pw-location-code-service-stage.us-east-1.np.paas.lmig.com")
             .build();
     }
 
