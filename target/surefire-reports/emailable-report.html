@@ -9,10 +9,39 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="7">Surefire suite</th></tr>
-<tr><td><a href="#t0">Surefire test</a></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">2,116</td><td></td><td></td></tr>
+<tr><td><a href="#t0">Surefire test</a></td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">2,733</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Surefire suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Surefire test &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">com.citrus.demo.citrustest.CitrusSampleTest</td><td><a href="#m0">test</a></td><td rowspan="1">1554322905355</td><td rowspan="1">2100</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Surefire suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Surefire test &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">com.citrus.demo.citrustest.CitrusSampleTest</td><td><a href="#m0">test</a></td><td rowspan="1">1557625275680</td><td rowspan="1">2653</td></tr></tbody>
 </table>
-<h2>Surefire test</h2><h3 id="m0">com.citrus.demo.citrustest.CitrusSampleTest#test</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h2>Surefire test</h2><h3 id="m0">com.citrus.demo.citrustest.CitrusSampleTest#test</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">com.consol.citrus.exceptions.TestCaseFailedException: Validation failed: Values not equal for header element &apos;citrus_http_status_code&apos;, expected &apos;201&apos; but was &apos;403&apos;
+	at com.consol.citrus.dsl.testng.TestNGCitrusTest.invokeTestMethod(TestNGCitrusTest.java:131)
+	at com.consol.citrus.dsl.testng.TestNGCitrusTest.run(TestNGCitrusTest.java:110)
+	at com.consol.citrus.dsl.testng.TestNGCitrusTest.run(TestNGCitrusTest.java:56)
+Caused by: com.consol.citrus.exceptions.TestCaseFailedException: Validation failed: Values not equal for header element &apos;citrus_http_status_code&apos;, expected &apos;201&apos; but was &apos;403&apos;
+	at com.consol.citrus.TestCase.executeAction(TestCase.java:227)
+	at com.consol.citrus.dsl.runner.DefaultTestRunner.run(DefaultTestRunner.java:188)
+	at com.consol.citrus.dsl.runner.DefaultTestRunner.http(DefaultTestRunner.java:540)
+	at com.consol.citrus.dsl.testng.TestNGCitrusTestRunner.http(TestNGCitrusTestRunner.java:375)
+	at com.citrus.demo.citrustest.CitrusSampleTest.test(CitrusSampleTest.java:50)
+	at org.springframework.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:223)
+	at com.consol.citrus.dsl.testng.TestNGCitrusTest.invokeTestMethod(TestNGCitrusTest.java:128)
+	... 28 more
+Caused by: com.consol.citrus.exceptions.ValidationException: Validation failed: Values not equal for header element &apos;citrus_http_status_code&apos;, expected &apos;201&apos; but was &apos;403&apos;
+	at com.consol.citrus.validation.DefaultHeaderValidator.validateHeader(DefaultHeaderValidator.java:77)
+	at com.consol.citrus.validation.DefaultMessageHeaderValidator.validateMessage(DefaultMessageHeaderValidator.java:90)
+	at com.consol.citrus.validation.DefaultMessageHeaderValidator.validateMessage(DefaultMessageHeaderValidator.java:36)
+	at com.consol.citrus.validation.AbstractMessageValidator.validateMessage(AbstractMessageValidator.java:46)
+	at com.consol.citrus.actions.ReceiveMessageAction.validateMessage(ReceiveMessageAction.java:231)
+	at com.consol.citrus.actions.ReceiveMessageAction.doExecute(ReceiveMessageAction.java:128)
+	at com.consol.citrus.actions.AbstractTestAction.execute(AbstractTestAction.java:42)
+	at com.consol.citrus.dsl.actions.DelegatingTestAction.doExecute(DelegatingTestAction.java:54)
+	at com.consol.citrus.actions.AbstractTestAction.execute(AbstractTestAction.java:42)
+	at com.consol.citrus.TestCase.executeAction(TestCase.java:220)
+	... 38 more
+Caused by: java.lang.IllegalArgumentException: Values not equal for header element &apos;citrus_http_status_code&apos;, expected &apos;201&apos; but was &apos;403&apos;
+	at org.springframework.util.Assert.isTrue(Assert.java:116)
+	at com.consol.citrus.validation.DefaultHeaderValidator.validateHeader(DefaultHeaderValidator.java:64)
+	... 47 more
+... Removed 30 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>

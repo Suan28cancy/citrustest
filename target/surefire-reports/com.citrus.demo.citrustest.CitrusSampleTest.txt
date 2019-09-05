@@ -1,4 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: com.citrus.demo.citrustest.CitrusSampleTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.774 s - in com.citrus.demo.citrustest.CitrusSampleTest
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 8.848 s <<< FAILURE! - in com.citrus.demo.citrustest.CitrusSampleTest
+test(com.citrus.demo.citrustest.CitrusSampleTest)  Time elapsed: 3.528 s  <<< FAILURE!
+com.consol.citrus.exceptions.TestCaseFailedException: Validation failed: Values not equal for header element 'citrus_http_status_code', expected '201' but was '403'
+	at com.citrus.demo.citrustest.CitrusSampleTest.test(CitrusSampleTest.java:50)
+Caused by: com.consol.citrus.exceptions.ValidationException: Validation failed: Values not equal for header element 'citrus_http_status_code', expected '201' but was '403'
+	at com.citrus.demo.citrustest.CitrusSampleTest.test(CitrusSampleTest.java:50)
+Caused by: java.lang.IllegalArgumentException: Values not equal for header element 'citrus_http_status_code', expected '201' but was '403'
+	at com.citrus.demo.citrustest.CitrusSampleTest.test(CitrusSampleTest.java:50)
+
